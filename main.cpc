@@ -1,0 +1,43 @@
+// This program calculates the new amounts of ingredients required when scaling a recipe
+// from the original number of servings to the desired number of servings.
+
+DECLARE servings : INTEGER // The original number of servings
+DECLARE desired_servings : INTEGER // The desired number of servings
+DECLARE number_of_ingredients : INTEGER // The number of ingredients in the recipe
+DECLARE conversion_factor : REAL // The conversion factor for scaling the recipe
+
+DECLARE ingredients : ARRAY[1:number_of_ingredients] OF STRING // Array to store the names of ingredients
+DECLARE units : ARRAY[1:number_of_ingredients] OF STRING // Array to store the units of ingredients
+DECLARE amounts : ARRAY[1:number_of_ingredients] OF REAL // Array to store the amounts of ingredients
+DECLARE new_amounts : ARRAY[1:number_of_ingredients] OF REAL // Array to store the new amounts of ingredients
+
+OUTPUT "Enter the original number of servings: "
+INPUT servings
+
+OUTPUT "Enter the desired number of servings: "
+INPUT desired_servings
+
+conversion_factor <- desired_servings / servings // Calculate the conversion factor
+
+OUTPUT "Enter the number of ingredients: "
+INPUT number_of_ingredients
+
+
+FOR i <- 1 TO number_of_ingredients
+    OUTPUT "Enter the name of ingredient " & STRING(i) & ": "
+    INPUT ingredients[i]
+    OUTPUT "Enter the amount of ingredient " & STRING(i) & ": "
+    INPUT amounts[i]
+    OUTPUT "Enter the unit of ingredient " & STRING(i) & ": "
+    INPUT units[i]
+NEXT i
+
+FOR i <- 1 TO number_of_ingredients
+    new_amounts[i] <- amounts[i] * conversion_factor // Calculate the new amount of each ingredient
+    new_amounts[i] <- ROUND(new_amounts[i], 2) // Round the new amount to 2 decimal places
+NEXT i
+
+OUTPUT "The new ingredients are: "
+FOR i <- 1 TO number_of_ingredients
+    OUTPUT ingredients[i] & " - " & STRING(new_amounts[i]) & " " & units[i] // Display the new ingredients and their amounts
+NEXT i
