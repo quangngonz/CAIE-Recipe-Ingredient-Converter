@@ -1,0 +1,47 @@
+CLASS Event
+    PRIVATE title : STRING
+    PRIVATE date : DATE
+
+    PUBLIC PROCEDURE NEW(title : STRING, date: DATE)
+        title <- title
+        date <- date
+    ENDPROCEDURE
+
+ENDCLASS
+
+CLASS EventScheduler
+    PRIVATE events : ARRAY[0:1] OF Event
+    PRIVATE numEvents : INTEGER
+
+    PUBLIC PROCEDURE NEW()
+        OUTPUT "How many events would you like to schedule?"
+        INPUT numEvents
+
+        DECLARE temp_events : ARRAY[0:numEvents] OF Event
+
+        FOR i <- 1 TO numEvents
+            OUTPUT "Enter the title of the event"
+            INPUT title
+            OUTPUT "Enter the date of the event"
+            INPUT date
+            temp_events[i] <- NEW Event(title, date)
+        NEXT i
+        
+        events <- temp_events
+
+        OUTPUT events
+    ENDPROCEDURE
+
+    // PUBLIC PROCEDURE addEvent(event : Event)
+    //     events <- events + event
+    // ENDPROCEDURE
+
+    // PUBLIC PROCEDURE getEvents()
+    //     RETURN events
+    // ENDPROCEDURE
+ENDCLASS
+
+DECLARE scheduler : EventScheduler
+scheduler <- NEW EventScheduler()
+
+
